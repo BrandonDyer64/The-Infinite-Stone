@@ -38,11 +38,20 @@ public class Flame {
 		}
 
 		public void render(SpriteBatch batch) {
-			y += Gdx.graphics.getDeltaTime() * 160;
+			y += Gdx.graphics.getDeltaTime() * 160 * 2;
 			this.x = x + 1 - random.nextInt(3);
 			this.y = y + 1 - random.nextInt(3);
 			batch.draw(fireParticleTex, x, y, 4, 4, 8, 8, size, size, (float) Math.toRadians(random.nextInt(360)));
-			size *= 0.94f;
+			/*for (int i = 0; i < particles.size(); i++) {
+				FireParticle p = particles.get(i);
+				if (!p.equals(this)) {
+					double dir = Math.atan2(p.y - y, p.x - x);
+					double dist = Math.sqrt(Math.pow(x - p.x, 2) + Math.pow(y - p.y, 2));
+					x += Math.cos(dir) * (1f / Math.pow(dist, 2));
+					y += Math.sin(dir) * (1f / Math.pow(dist, 2));
+				}
+			}*/
+			size *= (1 - Gdx.graphics.getDeltaTime() * 4);
 			if (size < 0.1f) {
 				particles.remove(this);
 			}
