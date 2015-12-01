@@ -1,0 +1,4 @@
+play=Jugar
+options=Opciones
+help=Ayudar
+credits=Créditos

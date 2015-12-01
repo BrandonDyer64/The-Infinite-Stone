@@ -20,7 +20,7 @@ public class Flame {
 	}
 
 	public void render(SpriteBatch batch) {
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < 2; i++) {
 			particles.add(new FireParticle(x, y));
 		}
 		for (int i = 0; i < particles.size(); i++) {
@@ -38,7 +38,7 @@ public class Flame {
 		}
 
 		public void render(SpriteBatch batch) {
-			y += Gdx.graphics.getDeltaTime() * 160 * 2;
+			y += Gdx.graphics.getDeltaTime() * 160 * 1;
 			this.x = x + 1 - random.nextInt(3);
 			this.y = y + 1 - random.nextInt(3);
 			batch.draw(fireParticleTex, x, y, 4, 4, 8, 8, size, size, (float) Math.toRadians(random.nextInt(360)));
