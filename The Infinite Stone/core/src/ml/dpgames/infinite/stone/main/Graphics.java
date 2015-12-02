@@ -64,9 +64,9 @@ public class Graphics {
 			pointer++; // pointer = 1
 			if (Gdx.input.isTouched()) {
 				pointer++; // pointer = 2
-				if (Gdx.input.justTouched()) {
-					pointer++; // pointer = 3
-				}
+			}
+			if (Input.justReleased() && Input.getClickDelta(camera) < 10) {
+				pointer += 2; // pointer = 3;
 			}
 		}
 		return pointer;
@@ -77,10 +77,16 @@ public class Graphics {
 			parameter.size = 50;
 			font = generator.generateFont(parameter);
 		}
+		font.setColor(color);
 		font.getData().setScale((size / 50 * 12));
 		GlyphLayout layout = new GlyphLayout();
 		layout.setText(font, str);
 		font.draw(batch, str, x, y);
 		return Input.touchGlyph(layout, new Vector2(x, y), camera);
 	}
+	
+	public static final Vector2 getItemCoords(int item) {
+		return new Vector2((item % 8) * 32, (item / 8) * 32);
+	}
+	
 }

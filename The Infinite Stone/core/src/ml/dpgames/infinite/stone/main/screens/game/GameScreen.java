@@ -2,7 +2,9 @@ package ml.dpgames.infinite.stone.main.screens.game;
 
 import ml.dpgames.infinite.stone.main.Graphics;
 import ml.dpgames.infinite.stone.main.IStoneMain;
+import ml.dpgames.infinite.stone.main.screens.game.areas.CatItemsArea;
 import ml.dpgames.infinite.stone.main.screens.game.areas.CatWorksArea;
+import ml.dpgames.infinite.stone.main.screens.game.areas.ItemsArea;
 import ml.dpgames.infinite.stone.main.screens.game.areas.StoneArea;
 import ml.dpgames.infinite.stone.main.screens.title.TitleScreen;
 
@@ -19,6 +21,7 @@ public class GameScreen implements Screen {
 	public static final OrthographicCamera camera = new OrthographicCamera(TitleScreen.getCamWidth(IStoneMain.scaling), IStoneMain.scaling);
 	public static int[] gems;
 	public static final int numGems = 17;
+	public static boolean[] unlockedGems;
 	public static Area[] areas;
 	public static int currentArea = 0;
 	public static int transitionSpeed = 10;
@@ -26,18 +29,20 @@ public class GameScreen implements Screen {
 	@Override
 	public void show() {
 		resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		areas = new Area[] { new StoneArea(), new CatWorksArea(), };
+		areas = new Area[] { new StoneArea(), new ItemsArea(), new CatItemsArea(), new CatWorksArea(), };
 		camera.position.x = -getSeparation() * 20;
 		gems = new int[numGems];
+		unlockedGems = new boolean[numGems];
 		for (int i = 0; i < numGems; i++) {
 			gems[i] = 0;
+			unlockedGems[i] = false;
 		}
 	}
 
 	@Override
 	public void render(float delta) {
 		/*Update*/{
-			
+
 		}
 		Graphics.clear(0, 0, 0);
 		camera.position.y = 0;
@@ -55,7 +60,7 @@ public class GameScreen implements Screen {
 			}
 			batch.draw(Graphics.vignette, -camera.viewportWidth / 2 + camera.position.x, -camera.viewportHeight / 2, camera.viewportWidth,
 					camera.viewportHeight);
-			for (int i = 0; i < areas.length; i++) {
+			for (int i = Math.max(0, currentArea - 1); i < Math.min(areas.length, currentArea + 2); i++) {
 				areas[i].render(batch, i);
 			}
 			int tabWidth = 6 * 8;
@@ -64,8 +69,8 @@ public class GameScreen implements Screen {
 					.draw(batch, new TextureRegion(Graphics.tab), camera.position.x - camera.viewportWidth / 2, -tabHeight / 2, tabWidth, tabHeight, camera) == 3) {
 				currentArea--;
 			}
-			if (Graphics
-					.draw(batch, new TextureRegion(Graphics.tab), camera.position.x + camera.viewportWidth / 2, -tabHeight / 2, -tabWidth, tabHeight, camera) == 3) {
+			if (Graphics.draw(batch, new TextureRegion(Graphics.tab), camera.position.x + camera.viewportWidth / 2, -tabHeight / 2, -tabWidth, tabHeight,
+					camera) == 3) {
 				currentArea++;
 			}
 			if (Gdx.input.isKeyJustPressed(Keys.A))

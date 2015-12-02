@@ -15,13 +15,17 @@ public class IStoneMain extends Game {
 	@Override
 	public void create() {
 		gameTime = 0;
+		Gdx.input.setInputProcessor(new Input());
 		setScreen(new TitleScreen());
 	}
 
 	@Override
 	public void render() {
 		gameTime += Gdx.graphics.getDeltaTime();
+		Input.update();
 		super.render();
+		Input.wasTouched = Gdx.input.isTouched();
+		Input.scroll = 0;
 	}
 
 	/**

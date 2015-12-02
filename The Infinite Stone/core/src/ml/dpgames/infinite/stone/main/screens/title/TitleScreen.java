@@ -26,7 +26,7 @@ public class TitleScreen implements Screen {
 	private Flame torchFlame;
 	public static final Texture tex = new Texture("title.png");
 	public static final Texture rope = new Texture("title_rope.png");
-	BitmapFont font;
+	public static BitmapFont font;
 	FreeTypeFontGenerator generator;
 	FreeTypeFontParameter parameter;
 
