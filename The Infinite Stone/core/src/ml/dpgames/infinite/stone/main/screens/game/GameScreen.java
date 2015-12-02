@@ -65,14 +65,16 @@ public class GameScreen implements Screen {
 			}
 			int tabWidth = 6 * 8;
 			int tabHeight = 32 * 8;
-			if (Graphics
-					.draw(batch, new TextureRegion(Graphics.tab), camera.position.x - camera.viewportWidth / 2, -tabHeight / 2, tabWidth, tabHeight, camera) == 3) {
-				currentArea--;
-			}
-			if (Graphics.draw(batch, new TextureRegion(Graphics.tab), camera.position.x + camera.viewportWidth / 2, -tabHeight / 2, -tabWidth, tabHeight,
-					camera) == 3) {
-				currentArea++;
-			}
+			if (currentArea != 0)
+				if (Graphics.draw(batch, new TextureRegion(Graphics.tab), camera.position.x - camera.viewportWidth / 2, -tabHeight / 2, tabWidth, tabHeight,
+						camera) == 3) {
+					currentArea--;
+				}
+			if (currentArea != areas.length - 1)
+				if (Graphics.draw(batch, new TextureRegion(Graphics.tab), camera.position.x + camera.viewportWidth / 2, -tabHeight / 2, -tabWidth, tabHeight,
+						camera) == 3) {
+					currentArea++;
+				}
 			if (Gdx.input.isKeyJustPressed(Keys.A))
 				currentArea--;
 			if (Gdx.input.isKeyJustPressed(Keys.D))

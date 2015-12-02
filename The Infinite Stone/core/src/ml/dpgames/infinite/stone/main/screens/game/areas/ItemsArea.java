@@ -29,10 +29,7 @@ public class ItemsArea extends Area {
 						Graphics.spriteSheet, (int) coords1.x, (int) coords1.y, 32, 32), 1, String.valueOf(GameScreen.gems[i]), areaX,
 						-IStoneMain.minCamWidth * (1.5f / 4f), -i * 96 + scroll, IStoneMain.minCamWidth * (3f / 4f));
 				if (pointer == 3) {
-					if (GameScreen.gems[i - 1] >= 100) {
-						GameScreen.gems[i]++;
-						GameScreen.gems[i - 1] -= 100;
-					}
+					
 				}
 			}
 		}

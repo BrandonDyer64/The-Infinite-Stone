@@ -22,6 +22,7 @@ public class CatItemsArea extends Area {
 				GameScreen.unlockedGems[i] = true;
 			}
 			boolean unlocked = GameScreen.unlockedGems[i];
+			unlocked = true;
 			Vector2 coords = unlocked ? Graphics.getItemCoords(i) : Graphics.getItemCoords(Catalog.itemNames.length);
 			Vector2 coords1 = unlocked ? Graphics.getItemCoords(i - 1) : Graphics.getItemCoords(Catalog.itemNames.length);
 			int cost = unlocked ? 100 : 1;
