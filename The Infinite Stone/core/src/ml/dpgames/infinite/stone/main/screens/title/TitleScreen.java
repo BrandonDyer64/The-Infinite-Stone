@@ -68,11 +68,11 @@ public class TitleScreen implements Screen {
 			torchFlame.y = 720 / 4 - (float) Math.cos(IStoneMain.gameTime * 2) * 2 + 64;
 			batch.draw(Graphics.vignette, -camera.viewportWidth / 2, -camera.viewportHeight / 2, camera.viewportWidth, camera.viewportHeight);
 			torchFlame.render(batch);
-			parameter.size = 40 * Gdx.graphics.getHeight() / IStoneMain.scaling;
-			if (font != null)
-				font.dispose();
-			font = generator.generateFont(parameter);
-			font.getData().setScale(camera.viewportHeight / Gdx.graphics.getHeight());
+			if (font == null) {
+				parameter.size = 40 * Gdx.graphics.getHeight() / IStoneMain.scaling;
+				font = generator.generateFont(parameter);
+				font.getData().setScale(camera.viewportHeight / Gdx.graphics.getHeight());
+			}
 			GlyphLayout layout = new GlyphLayout();
 			// Play
 			String play = Lang.prop.getProperty("play");

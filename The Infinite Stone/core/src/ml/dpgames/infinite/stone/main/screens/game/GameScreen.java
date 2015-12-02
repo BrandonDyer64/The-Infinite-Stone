@@ -1,35 +1,86 @@
 package ml.dpgames.infinite.stone.main.screens.game;
 
-import java.util.LinkedList;
-
 import ml.dpgames.infinite.stone.main.Graphics;
 import ml.dpgames.infinite.stone.main.IStoneMain;
+import ml.dpgames.infinite.stone.main.screens.game.areas.CatWorksArea;
+import ml.dpgames.infinite.stone.main.screens.game.areas.StoneArea;
 import ml.dpgames.infinite.stone.main.screens.title.TitleScreen;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class GameScreen implements Screen {
 
 	public static final SpriteBatch batch = new SpriteBatch();
 	public static final OrthographicCamera camera = new OrthographicCamera(TitleScreen.getCamWidth(IStoneMain.scaling), IStoneMain.scaling);
-	public static final LinkedList<Integer> numGems = new LinkedList<Integer>();
+	public static int[] gems;
+	public static final int numGems = 17;
+	public static Area[] areas;
+	public static int currentArea = 0;
+	public static int transitionSpeed = 10;
 
 	@Override
 	public void show() {
 		resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		areas = new Area[] { new StoneArea(), new CatWorksArea(), };
+		camera.position.x = -getSeparation() * 20;
+		gems = new int[numGems];
+		for (int i = 0; i < numGems; i++) {
+			gems[i] = 0;
+		}
 	}
 
 	@Override
 	public void render(float delta) {
+		/*Update*/{
+			
+		}
 		Graphics.clear(0, 0, 0);
+		camera.position.y = 0;
+		camera.position.x = getSeparation() * currentArea - (getSeparation() * currentArea - camera.position.x) / (transitionSpeed * delta + 1f);
 		camera.update();
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
 		{
-
+			for (int x = -1; x < camera.viewportWidth / Graphics.stoneBackground.getWidth() + 1; x++) {
+				for (int y = -1; y < camera.viewportHeight / Graphics.stoneBackground.getHeight() + 1; y++) {
+					batch.draw(Graphics.stoneBackground, camera.position.x + -camera.viewportWidth / 2 + x * Graphics.stoneBackground.getWidth()
+							- (camera.position.x / 2f) % Graphics.stoneBackground.getWidth(),
+							-camera.viewportHeight / 2 + y * Graphics.stoneBackground.getHeight());
+				}
+			}
+			batch.draw(Graphics.vignette, -camera.viewportWidth / 2 + camera.position.x, -camera.viewportHeight / 2, camera.viewportWidth,
+					camera.viewportHeight);
+			for (int i = 0; i < areas.length; i++) {
+				areas[i].render(batch, i);
+			}
+			int tabWidth = 6 * 8;
+			int tabHeight = 32 * 8;
+			if (Graphics
+					.draw(batch, new TextureRegion(Graphics.tab), camera.position.x - camera.viewportWidth / 2, -tabHeight / 2, tabWidth, tabHeight, camera) == 3) {
+				currentArea--;
+			}
+			if (Graphics
+					.draw(batch, new TextureRegion(Graphics.tab), camera.position.x + camera.viewportWidth / 2, -tabHeight / 2, -tabWidth, tabHeight, camera) == 3) {
+				currentArea++;
+			}
+			if (Gdx.input.isKeyJustPressed(Keys.A))
+				currentArea--;
+			if (Gdx.input.isKeyJustPressed(Keys.D))
+				currentArea++;
+			float threshold = Gdx.graphics.getWidth() * 2f;
+			if (Gdx.input.getDeltaX() / delta > threshold && Gdx.input.isTouched() && camIsPlaced())
+				currentArea--;
+			if (Gdx.input.getDeltaX() / delta < -threshold && Gdx.input.isTouched() && camIsPlaced())
+				currentArea++;
+			if (currentArea < 0)
+				currentArea = 0;
+			if (currentArea >= areas.length)
+				currentArea = areas.length - 1;
 		}
 		batch.end();
 	}
@@ -43,6 +94,12 @@ public class GameScreen implements Screen {
 			camera.viewportHeight = TitleScreen.getCamHeight(IStoneMain.minCamWidth);
 			camera.viewportWidth = IStoneMain.minCamWidth;
 		}
+		// camera.position.x = getSeparation() * currentArea;
+	}
+
+	public static boolean camIsPlaced() {
+		int threshold = 10;
+		return camera.position.x > currentArea * getSeparation() - threshold && camera.position.x < currentArea * getSeparation() + threshold;
 	}
 
 	public static final float getSeparation() {
