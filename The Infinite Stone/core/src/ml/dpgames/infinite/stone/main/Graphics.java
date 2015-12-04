@@ -1,5 +1,8 @@
 package ml.dpgames.infinite.stone.main;
 
+import ml.dpgames.infinite.stone.main.pretty.stuff.Clicksplosion;
+import ml.dpgames.infinite.stone.main.screens.game.GameScreen;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
@@ -65,8 +68,9 @@ public class Graphics {
 			if (Gdx.input.isTouched()) {
 				pointer++; // pointer = 2
 			}
-			if (Input.justReleased() && Input.getClickDelta(camera) < 10) {
+			if (Input.justReleased() && !Input.touchExceded(camera)) {
 				pointer += 2; // pointer = 3;
+				GameScreen.splodes.add(new Clicksplosion(Input.getX(camera),Input.getY(camera),5));
 			}
 		}
 		return pointer;

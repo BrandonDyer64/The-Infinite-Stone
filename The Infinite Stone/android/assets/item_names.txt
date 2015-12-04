@@ -1,11 +1,11 @@
 Rock
-Rock Ingot
-Iron Ingot
-Gold Ingot
-Copper Ingot
-Aluminum Ingot
-Lead Ingot
-Amethyst Ingot
+Rock Lump
+Iron
+Gold
+Copper
+Aluminum
+Lead
+Manganese
 Oinge
 Flourite
 Emerald

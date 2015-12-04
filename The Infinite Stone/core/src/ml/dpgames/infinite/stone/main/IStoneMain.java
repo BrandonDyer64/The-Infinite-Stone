@@ -1,5 +1,6 @@
 package ml.dpgames.infinite.stone.main;
 
+import ml.dpgames.infinite.stone.main.screens.game.GameScreen;
 import ml.dpgames.infinite.stone.main.screens.title.TitleScreen;
 
 import com.badlogic.gdx.Game;
@@ -16,6 +17,12 @@ public class IStoneMain extends Game {
 	public void create() {
 		gameTime = 0;
 		Gdx.input.setInputProcessor(new Input());
+		GameScreen.init();
+		try {
+			GameScreen.load();
+		} catch (Exception e) {
+			System.out.println("Game files not found. Creating them.");
+		}
 		setScreen(new TitleScreen());
 	}
 

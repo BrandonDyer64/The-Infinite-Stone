@@ -1,6 +1,7 @@
 package ml.dpgames.infinite.stone.main.android;
 
 import ml.dpgames.infinite.stone.main.IStoneMain;
+import ml.dpgames.infinite.stone.main.screens.game.GameScreen;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -43,7 +44,7 @@ public class AndroidLauncher extends AndroidApplication {
 				RelativeLayout.LayoutParams.WRAP_CONTENT);
 		layout.addView(adView, adParams);
 		adView.loadAd(builder.build());
-		
+
 		setContentView(layout);
 
 	}

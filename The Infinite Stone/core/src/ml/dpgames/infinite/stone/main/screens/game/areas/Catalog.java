@@ -13,6 +13,7 @@ public class Catalog {
 	public static final Texture slot = new Texture("catSlot.png");
 	public static final String itemNameOrig = Gdx.files.internal("item_names.txt").readString();
 	public static final String[] itemNames = itemNameOrig.split("\n");
+	public static final float sensitivity = 1.3f;
 
 	public static final int draw(Batch batch, TextureRegion item, int amount, TextureRegion costItem, int cost, String name, int areaX, float x, float y,
 			float width) {

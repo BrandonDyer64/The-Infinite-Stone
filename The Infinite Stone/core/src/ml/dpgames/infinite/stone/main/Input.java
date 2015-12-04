@@ -13,6 +13,7 @@ public class Input implements InputProcessor {
 	public static Vector2 clickDelta = new Vector2(0, 0);
 	public static Vector2 clickLast = new Vector2(0, 0);
 	public static int scroll = 0;
+	public static int pressSensitivity = 20;
 
 	public static float getX(Camera camera) {
 		return camera.position.x + (Gdx.input.getX() - Gdx.graphics.getWidth() / 2) * (camera.viewportWidth / Gdx.graphics.getWidth());
@@ -22,7 +23,7 @@ public class Input implements InputProcessor {
 		return camera.position.y + (Gdx.graphics.getHeight() - Gdx.input.getY() - Gdx.graphics.getHeight() / 2)
 				* (camera.viewportHeight / Gdx.graphics.getHeight());
 	}
-	
+
 	// Broken!!!
 	/*public static float getClickDeltaX(Camera camera) {
 		return camera.position.x + (clickDelta.x - Gdx.graphics.getWidth() / 2) * (camera.viewportWidth / Gdx.graphics.getWidth()) + 480;
@@ -32,9 +33,13 @@ public class Input implements InputProcessor {
 		return camera.position.y + (Gdx.graphics.getHeight() - clickDelta.y - Gdx.graphics.getHeight() / 2)
 				* (camera.viewportHeight / Gdx.graphics.getHeight()) - 360;
 	}*/
-	
+
 	public static float getClickDelta(Camera camera) {
 		return (float) Math.sqrt(Math.pow(clickDelta.x, 2) + Math.pow(clickDelta.y, 2));
+	}
+
+	public static boolean touchExceded(Camera camera) {
+		return getClickDelta(camera) > pressSensitivity * (Gdx.graphics.getHeight() / camera.viewportHeight);
 	}
 
 	public static float getDeltaX(Camera camera) {
@@ -43,6 +48,13 @@ public class Input implements InputProcessor {
 
 	public static float getDeltaY(Camera camera) {
 		return Gdx.input.getDeltaY() * (camera.viewportHeight / Gdx.graphics.getHeight()) * 2;
+	}
+
+	public static Dir getDir(Camera camera) {
+		if (Math.abs(getDeltaX(camera)) >= Math.abs(getDeltaY(camera))) {
+			return Dir.HORIZONTAL;
+		}
+		return Dir.VERTICAL;
 	}
 
 	public static boolean justReleased() {
@@ -70,9 +82,10 @@ public class Input implements InputProcessor {
 			if (Gdx.input.isTouched()) {
 				pointer++; // pointer = 2
 			}
-			if (Input.justReleased() && Input.getClickDelta(camera) < 10) {
+			if (Input.justReleased() && !Input.touchExceded(camera)) {
 				pointer += 2; // pointer = 3;
-				System.out.println("CLICKED");
+				// GameScreen.splodes.add(new
+				// Clicksplosion(Input.getX(camera),Input.getY(camera),5));
 			}
 		}
 		return pointer;
@@ -118,5 +131,9 @@ public class Input implements InputProcessor {
 		scroll = amount;
 		System.out.println("SCROLLED: " + scroll);
 		return false;
+	}
+
+	public enum Dir {
+		HORIZONTAL, VERTICAL
 	}
 }
