@@ -1,7 +1,8 @@
 package ml.dpgames.infinite.stone.main.android;
 
+import ml.dpgames.infinite.stone.main.Handler;
 import ml.dpgames.infinite.stone.main.IStoneMain;
-import ml.dpgames.infinite.stone.main.screens.game.GameScreen;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -24,7 +25,17 @@ public class AndroidLauncher extends AndroidApplication {
 
 		RelativeLayout layout = new RelativeLayout(this);
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
-		View gameView = initializeForView(new IStoneMain(), config);
+		try {
+			String app_ver = this.getPackageManager().getPackageInfo(this.getPackageName(), 0).versionName;
+		} catch (NameNotFoundException e) {
+			String app_ver = "Failed to load version name";
+		}
+		View gameView = initializeForView(new IStoneMain(new Handler(){
+			@Override
+			public void achievement(String name) {
+				// TODO: Call to Google for achievement
+			}
+		}), config);
 		layout.addView(gameView);
 
 		adView = new AdView(this);

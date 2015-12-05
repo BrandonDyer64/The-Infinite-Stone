@@ -8,6 +8,7 @@ import ml.dpgames.infinite.stone.main.Input;
 import ml.dpgames.infinite.stone.main.pretty.stuff.Clicksplosion;
 import ml.dpgames.infinite.stone.main.screens.game.areas.CatItemsArea;
 import ml.dpgames.infinite.stone.main.screens.game.areas.CatWorksArea;
+import ml.dpgames.infinite.stone.main.screens.game.areas.DwarvesArea;
 import ml.dpgames.infinite.stone.main.screens.game.areas.ItemsArea;
 import ml.dpgames.infinite.stone.main.screens.game.areas.StoneArea;
 import ml.dpgames.infinite.stone.main.screens.title.TitleScreen;
@@ -41,7 +42,7 @@ public class GameScreen implements Screen {
 	}
 
 	public static void init() {
-		areas = new Area[] { new StoneArea(), new ItemsArea(), new CatItemsArea(), new CatWorksArea(), };
+		areas = new Area[] { new StoneArea(), new ItemsArea(), new CatItemsArea(), new CatWorksArea(), new DwarvesArea() };
 		gems = new int[numGems];
 		unlockedGems = new boolean[numGems];
 		for (int i = 0; i < numGems; i++) {
@@ -151,7 +152,7 @@ public class GameScreen implements Screen {
 					}
 				}
 			} else {
-				gems[i] = 1000000000;
+				gems[i] = 1000000;
 			}
 		}
 		if (dwarfUpdateDelta >= 5) {

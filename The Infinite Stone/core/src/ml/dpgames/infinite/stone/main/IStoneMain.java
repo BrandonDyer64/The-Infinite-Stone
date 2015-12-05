@@ -12,6 +12,11 @@ public class IStoneMain extends Game {
 	public static float gameTime = 0;
 	public static int scaling = 720;
 	public static int minCamWidth = 480;
+	public static Handler handler;
+	
+	public IStoneMain(Handler handler) {
+		IStoneMain.handler = handler;
+	}
 	
 	@Override
 	public void create() {

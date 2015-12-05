@@ -22,7 +22,7 @@ public class CatWorksArea extends Area {
 		Catalog.draw(batch, new TextureRegion(Graphics.spriteSheet, (int) Graphics.getItemCoords(GameScreen.numGems+1).x, (int) Graphics.getItemCoords(GameScreen.numGems+1).y, 32, 32), 1, new TextureRegion(
 				Graphics.spriteSheet, (int) Graphics.getItemCoords(GameScreen.numGems+1).x, (int) Graphics.getItemCoords(GameScreen.numGems+1).y, 32, 32), 1, Lang.prop.getProperty("dwarves"), areaX, -IStoneMain.minCamWidth
 				* (1.5f / 4f), 1 * 96 + scroll, IStoneMain.minCamWidth * (3f / 4f));
-		for (int i = 0; i < Catalog.itemNames.length; i++) {
+		for (int i = 0; i < Catalog.itemNames.length-1; i++) {
 			boolean unlocked = GameScreen.unlockedGems[i < GameScreen.gems.length - 2 ? i + 1 : i];
 			Vector2 coords = unlocked ? Graphics.getItemCoords(i) : Graphics.getItemCoords(Catalog.itemNames.length);
 			Vector2 coords1 = unlocked ? Graphics.getItemCoords(i + 1) : Graphics.getItemCoords(Catalog.itemNames.length);

@@ -1,5 +1,5 @@
+Stone
 Rock
-Rock Lump
 Iron
 Gold
 Copper
@@ -7,7 +7,7 @@ Aluminum
 Lead
 Manganese
 Oinge
-Flourite
+Amethyst
 Emerald
 Saphire
 Dark
