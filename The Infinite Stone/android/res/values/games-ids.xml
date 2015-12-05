@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Google Play game services IDs.
+Save this file as res/values/games-ids.xml in your project.
+-->
+<resources>
+  <string name="app_id">564051094671</string>
+  <string name="package_name">ml.dpgames.infinite.stone.main.android</string>
+  <string name="achievement_its_not_a_boulder._its_a_rock">CgkIj9nCoLUQEAIQBA</string>
+  <string name="achievement_getting_stoned">CgkIj9nCoLUQEAIQAQ</string>
+  <string name="achievement_how_ironic">CgkIj9nCoLUQEAIQAg</string>
+  <string name="achievement_realization">CgkIj9nCoLUQEAIQAw</string>
+  <string name="achievement_weve_come_far">CgkIj9nCoLUQEAIQBQ</string>
+</resources>

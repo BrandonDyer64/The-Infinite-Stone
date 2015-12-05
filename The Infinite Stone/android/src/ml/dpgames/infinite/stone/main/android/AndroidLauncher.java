@@ -14,14 +14,20 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.games.Games;
+import com.google.android.gms.plus.Plus;
 
 public class AndroidLauncher extends AndroidApplication {
 	private static String TAG = "AndroidLauncher";
 	protected AdView adView;
+	public GoogleApiClient apiClient = new GoogleApiClient.Builder(this).addApi(Plus.API).addScope(Plus.SCOPE_PLUS_LOGIN).build();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		apiClient.connect(GoogleApiClient.SIGN_IN_MODE_OPTIONAL);
 
 		RelativeLayout layout = new RelativeLayout(this);
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
@@ -30,10 +36,28 @@ public class AndroidLauncher extends AndroidApplication {
 		} catch (NameNotFoundException e) {
 			String app_ver = "Failed to load version name";
 		}
-		View gameView = initializeForView(new IStoneMain(new Handler(){
+		View gameView = initializeForView(new IStoneMain(new Handler() {
 			@Override
 			public void achievement(String name) {
-				// TODO: Call to Google for achievement
+				String id = "";
+				switch (name) {
+				case "It's not a Boulder. It's a Rock!":
+					id = "CgkIj9nCoLUQEAIQBA";
+					break;
+				case "Getting Stoned":
+					id = "CgkIj9nCoLUQEAIQAQ";
+					break;
+				case "How Ironic":
+					id = "CgkIj9nCoLUQEAIQAg";
+					break;
+				case "Realization":
+					id = "CgkIj9nCoLUQEAIQAw";
+					break;
+				case "We've come far":
+					id = "CgkIj9nCoLUQEAIQBQ";
+					break;
+				}
+				Games.Achievements.unlock(apiClient, id);
 			}
 		}), config);
 		layout.addView(gameView);

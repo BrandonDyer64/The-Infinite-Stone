@@ -40,6 +40,7 @@ public class TitleScreen implements Screen {
 		System.out.println("RUN");
 		generator = new FreeTypeFontGenerator(Gdx.files.internal("DroidSans-Bold.ttf"));
 		parameter = new FreeTypeFontParameter();
+		IStoneMain.handler.achievement("You ran the game!");
 	}
 
 	@Override
