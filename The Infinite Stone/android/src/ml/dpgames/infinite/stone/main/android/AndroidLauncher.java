@@ -72,7 +72,7 @@ public class AndroidLauncher extends AndroidApplication {
 		});
 
 		adView.setAdSize(AdSize.SMART_BANNER);
-		adView.setAdUnitId("ca-app-pub-1192993843080120/4947427094");
+		adView.setAdUnitId("ca-app-pub-7345229224654271/4800313744");
 
 		AdRequest.Builder builder = new AdRequest.Builder();
 		RelativeLayout.LayoutParams adParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
