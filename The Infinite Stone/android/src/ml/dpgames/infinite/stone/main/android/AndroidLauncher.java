@@ -4,6 +4,7 @@ import ml.dpgames.infinite.stone.main.Handler;
 import ml.dpgames.infinite.stone.main.IStoneMain;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
+import android.provider.Settings.Secure;
 import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -14,20 +15,20 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.games.Games;
-import com.google.android.gms.plus.Plus;
 
 public class AndroidLauncher extends AndroidApplication {
-	private static String TAG = "AndroidLauncher";
+
+	private static String TAG = "InfiniteStone";
 	protected AdView adView;
-	public GoogleApiClient apiClient = new GoogleApiClient.Builder(this).addApi(Plus.API).addScope(Plus.SCOPE_PLUS_LOGIN).build();
+
+	// public GoogleApiClient apiClient = new
+	// GoogleApiClient.Builder(this).addApi(Plus.API).addScope(Plus.SCOPE_PLUS_LOGIN).build();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
-		apiClient.connect(GoogleApiClient.SIGN_IN_MODE_OPTIONAL);
+
+		// apiClient.connect(GoogleApiClient.SIGN_IN_MODE_OPTIONAL);
 
 		RelativeLayout layout = new RelativeLayout(this);
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
@@ -57,7 +58,7 @@ public class AndroidLauncher extends AndroidApplication {
 					id = "CgkIj9nCoLUQEAIQBQ";
 					break;
 				}
-				Games.Achievements.unlock(apiClient, id);
+				// Games.Achievements.unlock(apiClient, id);
 			}
 		}), config);
 		layout.addView(gameView);
@@ -69,12 +70,20 @@ public class AndroidLauncher extends AndroidApplication {
 			public void onAdLoaded() {
 				Log.i(TAG, "Ad Loaded!");
 			}
+
+			@Override
+			public void onAdFailedToLoad(int errorCode) {
+				Log.i(TAG, "Ad failed!");
+			}
 		});
+
+		Log.i(TAG, "Device id: " + Secure.getString(getContext().getContentResolver(), Secure.ANDROID_ID));
 
 		adView.setAdSize(AdSize.SMART_BANNER);
 		adView.setAdUnitId("ca-app-pub-7345229224654271/4800313744");
 
 		AdRequest.Builder builder = new AdRequest.Builder();
+		builder.addTestDevice("637F5950F4CB830A87224FF619278AD4");
 		RelativeLayout.LayoutParams adParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
 				RelativeLayout.LayoutParams.WRAP_CONTENT);
 		layout.addView(adView, adParams);
