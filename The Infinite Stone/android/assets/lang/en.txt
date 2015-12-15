@@ -8,3 +8,4 @@ dwarf_list=Dwarves
 inventory=Inventory
 compressor=Compressor
 the_stone=The Stone
+help0=This is the stone. It is infinite. Tap it\nto get some stones to start off with.

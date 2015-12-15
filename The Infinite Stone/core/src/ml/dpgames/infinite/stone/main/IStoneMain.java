@@ -1,6 +1,7 @@
 package ml.dpgames.infinite.stone.main;
 
 import ml.dpgames.infinite.stone.main.screens.game.GameScreen;
+import ml.dpgames.infinite.stone.main.screens.help.HelpScreen;
 import ml.dpgames.infinite.stone.main.screens.title.TitleScreen;
 
 import com.badlogic.gdx.Game;
@@ -23,6 +24,7 @@ public class IStoneMain extends Game {
 		gameTime = 0;
 		Gdx.input.setInputProcessor(new Input());
 		GameScreen.init();
+		HelpScreen.init();
 		try {
 			GameScreen.load();
 		} catch (Exception e) {

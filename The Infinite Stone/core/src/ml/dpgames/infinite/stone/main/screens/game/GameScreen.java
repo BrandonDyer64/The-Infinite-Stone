@@ -137,7 +137,10 @@ public class GameScreen implements Screen {
 	 */
 	
 	public static void checkAchievements() {
-		// TODO: Achievements : Austin this is for you.
+		// TODO: Finish achievements
+		if (gems[0] > 0) {
+			//IStoneMain.handler.achievement("It's not a Boulder. It's a Rock!");
+		}
 	}
 
 	public static void updateDwarfs() {

@@ -4,6 +4,8 @@ import ml.dpgames.infinite.stone.main.Graphics;
 import ml.dpgames.infinite.stone.main.IStoneMain;
 import ml.dpgames.infinite.stone.main.Input;
 import ml.dpgames.infinite.stone.main.screens.game.Area;
+import ml.dpgames.infinite.stone.main.screens.game.GameScreen;
+import ml.dpgames.infinite.stone.main.screens.help.areas.Help1Area;
 import ml.dpgames.infinite.stone.main.screens.title.TitleScreen;
 
 import com.badlogic.gdx.Gdx;
@@ -14,7 +16,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class HelpScreen implements Screen {
-	
+
 	public static final SpriteBatch batch = new SpriteBatch();
 	public static final OrthographicCamera camera = new OrthographicCamera(TitleScreen.getCamWidth(IStoneMain.scaling), IStoneMain.scaling);
 	public static Area[] areas;
@@ -28,8 +30,7 @@ public class HelpScreen implements Screen {
 	}
 
 	public static void init() {
-		areas = new Area[] { };
-		
+		areas = new Area[] { new Help1Area() };
 	}
 
 	@Override

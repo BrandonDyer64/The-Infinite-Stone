@@ -6,6 +6,7 @@ import ml.dpgames.infinite.stone.main.Input;
 import ml.dpgames.infinite.stone.main.Lang;
 import ml.dpgames.infinite.stone.main.pretty.stuff.Flame;
 import ml.dpgames.infinite.stone.main.screens.game.GameScreen;
+import ml.dpgames.infinite.stone.main.screens.help.HelpScreen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -40,7 +41,6 @@ public class TitleScreen implements Screen {
 		System.out.println("RUN");
 		generator = new FreeTypeFontGenerator(Gdx.files.internal("DroidSans-Bold.ttf"));
 		parameter = new FreeTypeFontParameter();
-		IStoneMain.handler.achievement("You ran the game!");
 	}
 
 	@Override
@@ -90,6 +90,9 @@ public class TitleScreen implements Screen {
 			String help = Lang.prop.getProperty("help");
 			layout.setText(font, help);
 			font.draw(batch, help, -layout.width / 2, -IStoneMain.scaling / 10 * 2);
+			if (Input.touchGlyph(layout, new Vector2(-layout.width / 2, -IStoneMain.scaling / 10 * 2), camera) == 3) {
+				IStoneMain.setTheScreen(new HelpScreen());
+			}
 			// Credits
 			String credits = Lang.prop.getProperty("credits");
 			layout.setText(font, credits);

@@ -15,20 +15,21 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.games.Games;
+import com.google.example.games.basegameutils.GameHelper;
 
 public class AndroidLauncher extends AndroidApplication {
-
+	
+	private GameHelper gameHelper;
+	
 	private static String TAG = "InfiniteStone";
 	protected AdView adView;
 
-	// public GoogleApiClient apiClient = new
-	// GoogleApiClient.Builder(this).addApi(Plus.API).addScope(Plus.SCOPE_PLUS_LOGIN).build();
+	//public GoogleApiClient apiClient = new GoogleApiClient.Builder(this).addApi(Plus.API).addScope(Plus.SCOPE_PLUS_LOGIN).build();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
-		// apiClient.connect(GoogleApiClient.SIGN_IN_MODE_OPTIONAL);
 
 		RelativeLayout layout = new RelativeLayout(this);
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
@@ -58,7 +59,7 @@ public class AndroidLauncher extends AndroidApplication {
 					id = "CgkIj9nCoLUQEAIQBQ";
 					break;
 				}
-				// Games.Achievements.unlock(apiClient, id);
+				Games.Achievements.unlock(apiClient, id);
 			}
 		}), config);
 		layout.addView(gameView);
